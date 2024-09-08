@@ -4,6 +4,7 @@
 
 //Main Program Functions
 int recursiveFib (int targetFibIndex, int fibSeries[], int maxIndex) {
+
    if (maxIndex + 1 == targetFibIndex) {
       return fibSeries[maxIndex];
    } else if (maxIndex + 1 < targetFibIndex) {
@@ -14,9 +15,6 @@ int recursiveFib (int targetFibIndex, int fibSeries[], int maxIndex) {
    return 0;
 }
 int iterativeFib (int targetFibIndex, int fibSeries[], int maxIndex) {
-   for (int index = maxIndex; index < targetFibIndex; index++) {
-      fibSeries[index + 1] = fibSeries[index - 1] + fibSeries[index];
-   }
 
    while (maxIndex + 1 < targetFibIndex) {
       fibSeries[maxIndex + 1] = fibSeries[maxIndex - 1] + fibSeries[maxIndex];
@@ -26,39 +24,34 @@ int iterativeFib (int targetFibIndex, int fibSeries[], int maxIndex) {
    return fibSeries[maxIndex];
 }
 
-int main(int argc, char *information[]) {
-   // Parameter Information Retrieval:
-   int num = atoi(information[1]);
-   char type = information[2][0];
-   char *fileName = information[3];
+int main (int argc, char *information[]) {
 
-   // Get File Information:
-   FILE *filePointer = fopen(fileName, "r");
+   const int INFORMATION_NUMBER = atoi(information[1]);
+   const char INFORMATION_TYPE = information[2][0];
+   const char *FILE_NAME = information[3];
+
+   FILE *file_pointer = fopen(FILE_NAME, "r");
    char fileText[256];
-   fgets(fileText, sizeof(fileText), filePointer);
-   int fileNum = atoi(fileText);
+   fgets(fileText, sizeof(fileText), file_pointer);
+   const int FILE_NUMBER = atoi(fileText);
 
-   // Problem Setup:
-   int targetFibIndex = num + fileNum;
+   const int TARGET_FIB_INDEX = INFORMATION_NUMBER + FILE_NUMBER;
 
-   // Initializations: 
-   int fibSeries[targetFibIndex + 1];
-   fibSeries[0] = 0;
-   fibSeries[1] = 1;
-   int maxIndex = 1;
+   int fib_series[TARGET_FIB_INDEX + 1];
+   fib_series[0] = 0;
+   fib_series[1] = 1;
+   int max_index = 1;
    int result = 0;
 
-   if (type == 'r') {
-      result = recursiveFib(targetFibIndex, fibSeries, maxIndex);
-      // printf("r function was used");
+   if (INFORMATION_TYPE == 'r') {
+      result = recursiveFib(TARGET_FIB_INDEX, fib_series, max_index);
    }
-   else if (type == 'i') {
-      result = iterativeFib(targetFibIndex, fibSeries, maxIndex);
-      // printf("i function was used");
+   else if (INFORMATION_TYPE == 'i') {
+      result = iterativeFib(TARGET_FIB_INDEX, fib_series, max_index);
    }
 
    printf("%d\n", result);
    
-   fclose(filePointer);
-   return result;
+   fclose(file_pointer);
+   return 0;
 }
