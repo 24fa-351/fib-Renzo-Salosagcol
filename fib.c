@@ -59,6 +59,10 @@ unsigned long long int fib_i(
 }
 
 int main (int argc, char *argv[]) {
+   if (argc != 4) {
+      fprintf(stderr, "Usage: %s <number> <type> <filename>\n", argv[0]);
+      return 1;
+   }
 
    const unsigned long long int INFORMATION_NUMBER = atoi(argv[1]);
    const char INFORMATION_TYPE = argv[2][0];
